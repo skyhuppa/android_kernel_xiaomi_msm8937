@@ -1051,17 +1051,17 @@ config BUILD_ARM64_APPENDED_DTB_IMAGE_NAMES
 
 choice
 	prompt "Kernel compression method"
-	default BUILD_ARM64_KERNEL_COMPRESSION_GZIP
+	default BUILD_ARM64_KERNEL_COMPRESSION_LZMA
 	help
-	  Allows choice between gzip compressed or uncompressed
+	  Allows choice between LZMA compressed or uncompressed
 	  kernel image
 
-config BUILD_ARM64_KERNEL_COMPRESSION_GZIP
+config BUILD_ARM64_KERNEL_COMPRESSION_LZMA
 	bool "Build compressed kernel image"
 	help
-	  Build a kernel image using gzip
+	  Build a kernel image using LZMA
 	  compression with concatenated dtb.
-	  gzip is based on the DEFLATE
+	  LZMA is based on the DEFLATE
 	  algorithm.
 
 config BUILD_ARM64_UNCOMPRESSED_KERNEL
