@@ -1892,22 +1892,6 @@ static void qpnp_flash_led_brightness_set(struct led_classdev *led_cdev,
 
 	flash_node->cdev.brightness = value;
 
-	pr_debug
-	    ("WT flash_node.cdev.name=%s,brightness=%d,id=%d,flash_node->type=%d\n",
-	     flash_node->cdev.name, flash_node->cdev.brightness, flash_node->id,
-	     flash_node->type);
-
-	if (!strcmp(flash_node->cdev.name, "flashlight")) {
-		pr_info("wt_flash_flashlight  enter value=%d\n", value);
-		if (value > 0) {
-			wt_flash_flashlight(true);
-			wake_lock(&led->flashlight_led_lock);
-		} else {
-			wt_flash_flashlight(false);
-			wake_unlock(&led->flashlight_led_lock);
-		}
-	}
-
 	if (led->flash_node[led->num_leds - 1].id == FLASH_LED_SWITCH) {
 		if (flash_node->type == TORCH)
 			led->flash_node[led->num_leds - 1].type = TORCH;
