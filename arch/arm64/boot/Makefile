@@ -16,7 +16,7 @@
 
 include $(srctree)/arch/arm64/boot/dts/infinix/Makefile
 
-targets := Image Image.gz
+targets := Image Image.lzma
 
 DTB_NAMES := $(subst $\",,$(CONFIG_BUILD_ARM64_APPENDED_DTB_IMAGE_NAMES))
 ifneq ($(DTB_NAMES),)
@@ -29,10 +29,10 @@ endif
 $(obj)/Image: vmlinux FORCE
 	$(call if_changed,objcopy)
 
-$(obj)/Image.gz: $(obj)/Image FORCE
-	$(call if_changed,gzip)
+$(obj)/Image.lzma: $(obj)/Image FORCE
+	$(call if_changed,lzmaip)
 
-$(obj)/Image.gz-dtb: $(obj)/Image.gz $(DTB_OBJS) FORCE
+$(obj)/Image.lzma-dtb: $(obj)/Image.lzma $(DTB_OBJS) FORCE
 	$(call if_changed,cat)
 
 $(obj)/Image-dtb-hdr: $(obj)/Image FORCE
@@ -46,6 +46,6 @@ install: $(obj)/Image
 	$(CONFIG_SHELL) $(srctree)/$(src)/install.sh $(KERNELRELEASE) \
 	$(obj)/Image System.map "$(INSTALL_PATH)"
 
-zinstall: $(obj)/Image.gz
+zinstall: $(obj)/Image.lzma
 	$(CONFIG_SHELL) $(srctree)/$(src)/install.sh $(KERNELRELEASE) \
-	$(obj)/Image.gz System.map "$(INSTALL_PATH)"
+	$(obj)/Image.lzma System.map "$(INSTALL_PATH)"
