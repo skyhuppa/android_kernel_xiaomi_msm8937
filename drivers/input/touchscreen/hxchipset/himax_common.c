@@ -1758,10 +1758,6 @@ const struct i2c_device_id *id)
 
 	himax_gpio_power_config(ts->client, pdata);
 
-	err = himax_ts_pinctrl_init(ts);
-	if (err || ts->ts_pinctrl == NULL)
-		E(" Pinctrl init failed\n");
-
 #ifndef CONFIG_OF
 	if (pdata->power) {
 		err = pdata->power(1);
